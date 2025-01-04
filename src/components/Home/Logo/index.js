@@ -15,7 +15,7 @@ const Logo = () => {
             { opacity: 1, duration: 2 }
         );
     }, []);
-
+    
     return (
         <div className="logo-container" ref={bgref}>
             <img ref={solidLogoRef} className="solid-logo" src={LogoS} alt="S" />
