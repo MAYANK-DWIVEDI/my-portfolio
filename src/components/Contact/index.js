@@ -4,13 +4,14 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
 import AnimatedLetters from '../AnimatedLetters';
 import './index.scss';
-
-// Uncomment this section if you want to use EmailJS
-// import emailjs from '@emailjs/browser';
+import emailjs from 'emailjs-com';  // Import EmailJS
 
 const Contact = () => {
   const [letterClass, setLetterClass] = useState('text-animate');
   const form = useRef();
+
+  // Check if email has been sent in this session
+  const isEmailSent = sessionStorage.getItem('emailSent') === 'true';
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,21 +22,38 @@ const Contact = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Uncomment the following if you want to use EmailJS
-  // const sendEmail = (e) => {
-  //   e.preventDefault();
-  //   emailjs
-  //     .sendForm('gmail', 'template_YeJhZkgb', form.current, 'your-token')
-  //     .then(
-  //       () => {
-  //         alert('Message successfully sent!');
-  //         window.location.reload(false);
-  //       },
-  //       () => {
-  //         alert('Failed to send the message, please try again');
-  //       }
-  //     );
-  // };
+  // Function to send email using EmailJS
+  const sendEmail = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+
+    // Check if the email has already been sent in this session
+    if (isEmailSent) {
+      alert('You have already sent an email in this session.');
+      return;
+    }
+
+    // Send email using EmailJS
+    emailjs
+      .sendForm(
+        'service_fd7vidv',        // Your Service ID
+        'template_czkydie',       // Your Template ID
+        form.current,             // Reference to the form
+        'vSdlpg1ea4534NO5F'       // Your Public Key
+      )
+      .then(
+        (result) => {
+          console.log('Success:', result.text);
+          alert('Message successfully sent!');
+          
+          // Mark the email as sent in sessionStorage
+          sessionStorage.setItem('emailSent', 'true');
+        },
+        (error) => {
+          console.error('Error:', error.text);
+          alert('Failed to send the message, please try again.');
+        }
+      );
+  };
 
   return (
     <>
@@ -54,7 +72,7 @@ const Contact = () => {
             questions, don't hesitate to contact me using the form below.
           </p>
           <div className="contact-form">
-            <form ref={form} >
+            <form ref={form} onSubmit={sendEmail}>
               <ul>
                 <li className="half">
                   <input placeholder="Name" type="text" name="name" required />
@@ -83,7 +101,7 @@ const Contact = () => {
                   ></textarea>
                 </li>
                 <li>
-                  <input type="submit" className="flat-button" value="SEND" />
+                  <input type="submit" className="flat-button" value="SEND" disabled={isEmailSent} />
                 </li>
               </ul>
             </form>
@@ -94,19 +112,18 @@ const Contact = () => {
           <br />
           India,
           <br />
-          Branka RadiČevića 19, 22000 <br />
+          Dehradun<br />
           Sremska Mitrovica <br />
           <br />
           <span>freelancerslobodan@gmail.com</span>
         </div>
         <div className="map-wrap">
-        <MapContainer center={[30.0668, 79.0193]} zoom={1}>
-  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-  <Marker position={[30.0668, 79.0193]}>
-    <Popup>Welcome to Uttarakhand, India!</Popup>
-  </Marker>
-</MapContainer>
-
+          <MapContainer center={[30.0668, 79.0193]} zoom={10}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <Marker position={[30.0668, 79.0193]}>
+              <Popup>Welcome to Uttarakhand, India!</Popup>
+            </Marker>
+          </MapContainer>
         </div>
       </div>
       <Loader type="pacman" />
