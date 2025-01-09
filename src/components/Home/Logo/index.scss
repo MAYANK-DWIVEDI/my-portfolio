@@ -37,3 +37,11 @@
     stroke-width: 10;
   }
   
+  @media screen and (max-width: 768px) {
+    .logo-container {
+      width: 200px;
+      height: 300px;
+      top: 20%;
+      right: 5%;
+    }
+  }

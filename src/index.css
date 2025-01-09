@@ -18,8 +18,9 @@ body {
   margin-left: 200px;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 768px) {
   body {
+    font-size: 10px;
     overflow: visible;
   }
 }
