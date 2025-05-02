@@ -28,9 +28,13 @@ const About  = () => {
                     strArray={['A','B','O','U','T',' ','M','E']}
                     idx={15} />
                         </h1>
-                        <p>ambitious </p>
-                        <p>confident </p>
-                        <p>hellow</p>
+                        <p>I’m a passionate and detail-oriented front-end developer with a strong foundation in web technologies like HTML, CSS, JavaScript, and React.js. Currently pursuing my B.Tech, I enjoy building clean, responsive, and user-friendly web applications that create meaningful digital experiences.
+
+
+
+ </p>
+                        <p>I love solving real-world problems through code and continuously strive to learn and grow. Whether it's collaborating on a team project or experimenting with new libraries and tools, I bring enthusiasm, adaptability, and a user-first mindset to everything I do.</p>
+                        <p>When I’m not coding, I enjoy exploring design tools, reading about the latest tech trends, and contributing to personal projects that challenge me creatively and technically.</p>
             </div>
             <div className='stage-cube-cont'>
                 <div className='cubespinner'>
