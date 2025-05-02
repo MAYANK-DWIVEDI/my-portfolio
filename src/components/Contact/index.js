@@ -32,13 +32,22 @@ const Contact = () => {
       return;
     }
 
+    // Create template parameters
+    const templateParams = {
+      from_name: form.current.name.value,
+      from_email: form.current.email.value,
+      to_name: 'Mayank',
+      subject: form.current.subject.value,
+      message_html: form.current.message.value,
+    };
+
     // Send email using EmailJS
     emailjs
-      .sendForm(
-        'service_fd7vidv',        // Your Service ID
-        'template_czkydie',       // Your Template ID
-        form.current,             // Reference to the form
-        'vSdlpg1ea4534NO5F'       // Your Public Key
+      .send(
+        'service_fd7vidv', // Your Service ID
+        'template_czkydie', // Your Template ID
+        templateParams, // Template parameters
+        'vSdlpg1ea4534NO5F' // Your Public Key
       )
       .then(
         (result) => {
